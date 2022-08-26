@@ -11,7 +11,7 @@ public class Slower : Enemy
         TankController controller = player.GetComponent<TankController>();
         if (controller != null)
         {
-            controller.MaxSpeed -= this._slowAmount;
+            controller.MaxSpeed = Mathf.Max(controller.MaxSpeed - this._slowAmount, 0);
         }
     }
 }

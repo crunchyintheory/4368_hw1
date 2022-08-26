@@ -9,11 +9,24 @@ public class Player : MonoBehaviour
     [SerializeField] private int _maxHealth = 3;
     private int _currentHealth;
     private int _treasureCount = 0;
+    private bool _invincible = false;
+
+    public bool Invincible
+    {
+        get => this._invincible;
+        set
+        {
+            this._shieldBubble.SetActive(value);
+            this._invincible = value;
+        }
+    }
 
     private TankController _tankController;
 
     [Header("References")] [SerializeField]
     private TextMeshProUGUI _treasureText;
+
+    [SerializeField] private GameObject _shieldBubble;
 
     private void Awake()
     {
@@ -40,16 +53,18 @@ public class Player : MonoBehaviour
 
     public void DecreaseHealth(int amount)
     {
+        if (this.Invincible) return;
         this._currentHealth -= amount;
         Debug.Log($"Player's health: {this._currentHealth}");
         if (this._currentHealth <= 0)
         {
-            this.Kill();
+            Kill();
         }
     }
 
     public void Kill()
     {
+        if (this.Invincible) return;
         this.gameObject.SetActive(false);
     }
 

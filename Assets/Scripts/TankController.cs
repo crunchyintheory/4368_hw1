@@ -10,11 +10,25 @@ public class TankController : MonoBehaviour
     [SerializeField] private float _maxSpeed = 0.25f;
     [SerializeField] private float _minSpeed = 0.25f;
     [SerializeField] private float _acceleration = 0.05f;
+    [SerializeField] private float _speedParticlesThreshold = 0.26f;
+
+    [SerializeField] private ParticleSystem _speedParticles;
 
     public float MaxSpeed
     {
         get => this._maxSpeed;
-        set => this._maxSpeed = value;
+        set
+        {
+            if (value >= this._speedParticlesThreshold)
+            {
+                this._speedParticles.Play();
+            }
+            else
+            {
+                this._speedParticles.Stop();
+            }
+            this._maxSpeed = value;
+        }
     }
 
     private Rigidbody _rb = null;
@@ -31,6 +45,8 @@ public class TankController : MonoBehaviour
         // temporary
         this._moveSpeed = this._maxSpeed;
         //ScaleMoveSpeed();
+        var emission = this._speedParticles.emission;
+        emission.rateOverTime = 30f * Mathf.Abs(Input.GetAxis("Vertical"));
     }
 
     // Not sure why max speed does nothing here, but this fixes it somewhat
