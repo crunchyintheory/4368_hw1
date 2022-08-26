@@ -31,11 +31,13 @@ public class TankController : MonoBehaviour
         }
     }
 
-    private Rigidbody _rb = null;
+    private Rigidbody _rb;
+    private AudioSource _movementAudio;
 
     private void Awake()
     {
         this._rb = GetComponent<Rigidbody>();
+        this._movementAudio = GetComponent<AudioSource>();
     }
 
     private void FixedUpdate()
@@ -45,8 +47,11 @@ public class TankController : MonoBehaviour
         // temporary
         this._moveSpeed = this._maxSpeed;
         //ScaleMoveSpeed();
+        
+        float inputMagnitude = Mathf.Abs(Input.GetAxis("Vertical"));
+        this._movementAudio.volume = inputMagnitude;
         var emission = this._speedParticles.emission;
-        emission.rateOverTime = 30f * Mathf.Abs(Input.GetAxis("Vertical"));
+        emission.rateOverTime = 30f * inputMagnitude;
     }
 
     // Not sure why max speed does nothing here, but this fixes it somewhat

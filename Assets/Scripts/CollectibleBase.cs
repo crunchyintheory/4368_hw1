@@ -13,6 +13,9 @@ public abstract class CollectibleBase : MonoBehaviour
     [SerializeField] private ParticleSystem _collectParticles;
     [SerializeField] private AudioClip _collectSound;
 
+    protected ParticleSystem CollectParticles => this._collectParticles;
+    protected AudioClip CollectSound => this._collectSound;
+
     private Rigidbody _rb;
 
     private void Awake()
@@ -38,19 +41,19 @@ public abstract class CollectibleBase : MonoBehaviour
         if (player != null)
         {
             Collect(player);
-            Disable();
+            Disable(player);
         }
     }
 
-    protected virtual void Disable()
+    protected virtual void Disable(Player player)
     {
         // spawn particles & sfx because we need to disable object
-        Feedback();
+        Feedback(player);
             
         this.gameObject.SetActive(false);
     }
 
-    protected virtual void Feedback()
+    protected virtual void Feedback(Player player)
     {
         // particles
         if (this._collectParticles != null)

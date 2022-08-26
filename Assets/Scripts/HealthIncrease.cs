@@ -11,4 +11,18 @@ public class HealthIncrease : CollectibleBase
     {
         player.IncreaseHealth(this._healthAdded);
     }
+    
+    protected override void Feedback(Player player)
+    {
+        // particles
+        if (this.CollectParticles != null)
+        {
+            Instantiate(this.CollectParticles, player.transform);
+        }
+        //audio. TODO - consider Obejct (sic) Pooling for performance
+        if (this.CollectSound != null)
+        {
+            AudioHelper.PlayClip2D(this.CollectSound, 1f);
+        }
+    }
 }
