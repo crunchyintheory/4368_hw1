@@ -28,10 +28,13 @@ public class TankController : MonoBehaviour
     {
         MoveTank();
         TurnTank();
-        ScaleMoveSpeed();
+        // temporary
+        this._moveSpeed = this._maxSpeed;
+        //ScaleMoveSpeed();
     }
 
     // Not sure why max speed does nothing here, but this fixes it somewhat
+    // Will implement this in the future to make sure the speed system is immediately apparent to be functioning
     public void ScaleMoveSpeed()
     {
         float acceleration = this._acceleration;

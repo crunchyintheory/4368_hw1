@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(TankController))]
@@ -7,8 +8,12 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private int _maxHealth = 3;
     private int _currentHealth;
+    private int _treasureCount = 0;
 
     private TankController _tankController;
+
+    [Header("References")] [SerializeField]
+    private TextMeshProUGUI _treasureText;
 
     private void Awake()
     {
@@ -46,5 +51,11 @@ public class Player : MonoBehaviour
     public void Kill()
     {
         this.gameObject.SetActive(false);
+    }
+
+    public void GetTreasure(int value = 1)
+    {
+        this._treasureCount += value;
+        this._treasureText.text = $"Treasure: {this._treasureCount}";
     }
 }
