@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Missile : Projectile
+public class Missile : ProjectileMovement
 {
     [SerializeField] private Transform _art;
 
