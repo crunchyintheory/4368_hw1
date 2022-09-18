@@ -6,9 +6,15 @@ using UnityEngine;
 public class Damageable : MonoBehaviour
 {
     [SerializeField] private float _initialHealth;
+    [SerializeField] private int _team;
     
     public float Health { get; protected set; }
-    public int Team { get; protected set; }
+
+    public int Team
+    {
+        get => this._team;
+        protected set => this._team = value;
+    }
 
     private DamageSource _lastTouched;
 
@@ -23,7 +29,7 @@ public class Damageable : MonoBehaviour
         this.Health = this._initialHealth;
     }
 
-    public void ModifyHealth(float delta, DamageSource source)
+    public virtual void ModifyHealth(float delta, DamageSource source)
     {
         this.Health += delta;
         this.OnDamaged?.Invoke(this, source);

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class DamageSource : MonoBehaviour
 {
-    public int Team { get; protected set; }
+    [SerializeField] public int Team;
 
     [SerializeField] public float Damage = 1;
     [SerializeField] public bool Piercing = false;
@@ -18,11 +18,12 @@ public class DamageSource : MonoBehaviour
         this._destroyEffects = GetComponent<DestroyEffects>();
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
         Damageable d = other.gameObject.GetComponent<Damageable>();
         if (d)
         {
+            if (d.Team == this.Team) return;
             d.ModifyHealth(-this.Damage, this);
         }
 

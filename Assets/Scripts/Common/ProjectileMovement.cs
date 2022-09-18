@@ -7,6 +7,8 @@ public class ProjectileMovement : MonoBehaviour
 {
     [SerializeField] private Vector3 _initialVelocity;
 
+    public Quaternion Rotation = Quaternion.identity;
+
     public Vector3 Velocity { get; protected set; }
 
     private Rigidbody _rb;
@@ -19,6 +21,6 @@ public class ProjectileMovement : MonoBehaviour
 
     private void Update()
     {
-        this._rb.velocity = this.Velocity;
+        this._rb.velocity = this.Rotation * this.Velocity;
     }
 }

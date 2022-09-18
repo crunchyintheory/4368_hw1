@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using UnityEngine;
 
 
@@ -12,6 +10,9 @@ public class Barrier : MonoBehaviour
     public static short ActiveGroup { get; private set; } = 0;
     public const short NumGroups = 2;
     public static Color[] GroupColors;
+    
+    public delegate void SwitchEventHandler();
+    public static event SwitchEventHandler OnSwitch;
 
     public static void Switch()
     {
@@ -22,6 +23,7 @@ public class Barrier : MonoBehaviour
         {
             barrier.SetActive(barrier._group == ActiveGroup);
         });
+        OnSwitch?.Invoke();
     }
 
     public static void RegisterBarrier(Barrier barrier)
@@ -45,18 +47,18 @@ public class Barrier : MonoBehaviour
 
     private Collider _collider;
 
-    private void Start()
-    {
-        GroupColors ??= new Color[] {this._color1, this._color2};
-        Material m = GetComponent<MeshRenderer>().materials[0];
-        m.SetVector("_EmissiveColor", GroupColors[this._group]);
-    }
-
     private void Awake()
     {
+        GroupColors ??= new Color[] {this._color1, this._color2};
         this._collider = GetComponent<Collider>();
         this._basePosition = this.transform.position;
         RegisterBarrier(this);
+    }
+
+    private void Start()
+    {
+        Material m = GetComponent<MeshRenderer>().materials[0];
+        m.SetVector("_EmissiveColor", GroupColors[this._group]);
     }
     
     public void SetActive(bool active)

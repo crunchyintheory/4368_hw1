@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 841377665}
   - component: {fileID: 841377668}
   - component: {fileID: 841377667}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1328797707672841463}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Art
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 6340393190788601510}
   - component: {fileID: 6340393190788601511}
   - component: {fileID: 6340393190788601512}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,7 +160,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6690660574619614343}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.25
@@ -221,5 +221,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deaec605d9a9f3346a996576701478c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Team: 0
   Damage: 1
   Piercing: 0

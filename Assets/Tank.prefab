@@ -381,6 +381,7 @@ GameObject:
   - component: {fileID: 4122715024912857655}
   - component: {fileID: 4122715024912857654}
   - component: {fileID: 4122715024912857653}
+  - component: {fileID: 6718299845587326339}
   m_Layer: 0
   m_Name: Tank
   m_TagString: Untagged
@@ -565,6 +566,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6718299845587326339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4122715024912857651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 921e614d8c1155a4086757d8ea490766, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cannonPivot: {fileID: 4802137816574620057}
+  _shotCooldown: 0.5
+  _shot: {fileID: 0}
+  _shotSpawnPosition: {fileID: 0}
 --- !u!1 &4122715025006072248
 GameObject:
   m_ObjectHideFlags: 0
