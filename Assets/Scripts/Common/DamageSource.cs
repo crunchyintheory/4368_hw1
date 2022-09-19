@@ -10,6 +10,7 @@ public class DamageSource : MonoBehaviour
 
     [SerializeField] public float Damage = 1;
     [SerializeField] public bool Piercing = false;
+    [SerializeField] public bool BlocksOtherProjectiles = false;
 
     private DestroyEffects _destroyEffects;
 
@@ -26,6 +27,10 @@ public class DamageSource : MonoBehaviour
             if (d.Team == this.Team) return;
             d.ModifyHealth(-this.Damage, this);
         }
+
+        DamageSource damageSource = other.gameObject.GetComponent<DamageSource>();
+        if (damageSource && !damageSource.BlocksOtherProjectiles)
+            return;
 
         if (!this.Piercing)
         {

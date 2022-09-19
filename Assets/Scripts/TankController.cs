@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class TankController : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class TankController : MonoBehaviour
     [SerializeField] private float _speedParticlesThreshold = 0.26f;
 
     [SerializeField] private ParticleSystem _speedParticles;
+    [SerializeField] private Transform _bodyPivot;
 
     public float MaxSpeed
     {
@@ -33,30 +35,32 @@ public class TankController : MonoBehaviour
 
     private Rigidbody _rb;
     private AudioSource _movementAudio;
+    private CharacterController _character;
 
     private void Awake()
     {
         this._rb = GetComponent<Rigidbody>();
         this._movementAudio = GetComponent<AudioSource>();
+        this._character = GetComponent<CharacterController>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         MoveTank();
-        TurnTank();
+        //TurnTank();
         // temporary
-        this._moveSpeed = this._maxSpeed;
+        //this._moveSpeed = this._maxSpeed;
         //ScaleMoveSpeed();
-        
-        float inputMagnitude = Mathf.Abs(Input.GetAxis("Vertical"));
+
+        /*float inputMagnitude = Vector2.ClampMagnitude(new Vector2(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal")), 1).sqrMagnitude / 2;
         this._movementAudio.volume = inputMagnitude;
         var emission = this._speedParticles.emission;
-        emission.rateOverTime = 30f * inputMagnitude;
+        emission.rateOverTime = 30f * inputMagnitude;*/
     }
 
     // Not sure why max speed does nothing here, but this fixes it somewhat
     // Will implement this in the future to make sure the speed system is immediately apparent to be functioning
-    public void ScaleMoveSpeed()
+    /*public void ScaleMoveSpeed()
     {
         float acceleration = this._acceleration;
         float movementMagnitude = Mathf.Abs(Input.GetAxis("Vertical"));
@@ -70,26 +74,17 @@ public class TankController : MonoBehaviour
         
         this._moveSpeed = Mathf.Clamp(this._moveSpeed + acceleration, this._minSpeed, this._maxSpeed);
         Debug.Log(acceleration);
-    }
+    }*/
 
     public void MoveTank()
     {
-        // calculate the move amount
-        float moveAmountThisFrame = Input.GetAxis("Vertical") * this._moveSpeed;
-        // create a vector from amount and direction
-        Vector3 moveOffset = this.transform.forward * moveAmountThisFrame;
-        // apply vector to the rigidbody
-        this._rb.MovePosition(this._rb.position + moveOffset);
-        // technically adjusting vector is more accurate! (but more complex)
-    }
+        Vector3 moveInput = Vector3.ClampMagnitude(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")), 1);
+        Vector3 moveAmountThisFrame = moveInput * this._moveSpeed;
+        this._character.Move((moveAmountThisFrame + Physics.gravity) * Time.deltaTime);
 
-    public void TurnTank()
-    {
-        // calculate the turn amount
-        float turnAmountThisFrame = Input.GetAxis("Horizontal") * this._turnSpeed;
-        // create a Quaternion from amount and direction (x,y,z)
-        Quaternion turnOffset = Quaternion.Euler(0, turnAmountThisFrame, 0);
-        // apply quaternion to the rigidbody
-        this._rb.MoveRotation(this._rb.rotation * turnOffset);
+        /*if(Input.GetAxis("Vertical") > 0)
+            this._bodyPivot.rotation = Quaternion.Euler(Vector3.Cross(Vector3.forward, moveInput) * 90);
+        else
+            this._bodyPivot.rotation = Quaternion.Euler(Vector3.Cross(Vector3.back, moveInput) * 90);*/
     }
 }

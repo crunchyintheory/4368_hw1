@@ -273,6 +273,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1509496f9b350da47be231c41bd1dc74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moveTime: 1.5
+  _positions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _rocket: {fileID: 8723730830308043806, guid: 83b0534ad34969d4f85b31a91d6fc9bd, type: 3}
+  _energyBall: {fileID: 6340393190788601510, guid: ed68f9060a24d5942991b747aea24a3b, type: 3}
+  _explosion: {fileID: 7829030957035343067, guid: cbd73f0e5ebd4364f9ca5af466526a15, type: 3}
 --- !u!1 &3875279442448644725
 GameObject:
   m_ObjectHideFlags: 0
