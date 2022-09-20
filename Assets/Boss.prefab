@@ -238,6 +238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3875279442181555213}
   - component: {fileID: 3875279442181555214}
+  - component: {fileID: 504823703}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -278,9 +279,33 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  _baseHeight: -4.93
+  _hideHeight: -14
+  _hideTime: 5
+  _laserTime: 10
   _rocket: {fileID: 8723730830308043806, guid: 83b0534ad34969d4f85b31a91d6fc9bd, type: 3}
   _energyBall: {fileID: 6340393190788601510, guid: ed68f9060a24d5942991b747aea24a3b, type: 3}
   _explosion: {fileID: 7829030957035343067, guid: cbd73f0e5ebd4364f9ca5af466526a15, type: 3}
+--- !u!95 &504823703
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3875279442181555212}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 92420f197e572284794878aa09c6f2cd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3875279442448644725
 GameObject:
   m_ObjectHideFlags: 0
