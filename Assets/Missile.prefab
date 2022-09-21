@@ -4946,7 +4946,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _initialVelocity: {x: 0, y: 0, z: 2}
-  Rotation: {x: 0, y: 0, z: 0, w: 1}
   _art: {fileID: 7904253177736822498}
 --- !u!65 &2089189747607422564
 BoxCollider:
@@ -4989,10 +4988,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deaec605d9a9f3346a996576701478c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Team: 1
-  Damage: 1.5
+  _team: 1
+  Damage: 10
   Piercing: 0
-  BlocksOtherProjectiles: 0
+  BlocksOtherProjectiles: 1
+  FriendlyFire: 1
+  WarmupTime: 0.3
+  _destroyEffects: {fileID: 1356618345}
 --- !u!114 &1356618345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5005,9 +5007,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96532bb50e16f04cbea545d2c13607a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DestroySounds: {fileID: 0}
-  Volume: 0
-  DestroyParticles: {fileID: 7829030957035343067, guid: cbd73f0e5ebd4364f9ca5af466526a15, type: 3}
+  Sounds: {fileID: 8300000, guid: efc5c8b47a753e142926968f6c37d8ba, type: 3}
+  Volume: 0.5
+  Particles: {fileID: 7829030957035343067, guid: cbd73f0e5ebd4364f9ca5af466526a15, type: 3}
+  _debounceGroup: explosion
+  DebounceSound: 0.1
 --- !u!1 &7420345377547691096
 GameObject:
   m_ObjectHideFlags: 0

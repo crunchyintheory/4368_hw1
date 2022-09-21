@@ -4,29 +4,41 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class DamageSource : MonoBehaviour
+public class DamageSource : MonoBehaviour, ITeamable
 {
-    [SerializeField] public int Team;
+    [SerializeField] private int _team;
 
-    [SerializeField] public float Damage = 1;
+    public int Team
+    {
+        get => this._team;
+        set => this._team = value;
+    }
+
+    [SerializeField] public int Damage = 1;
     [SerializeField] public bool Piercing = false;
     [SerializeField] public bool BlocksOtherProjectiles = false;
+    [SerializeField] public bool FriendlyFire = false;
+    [SerializeField] public float WarmupTime = 0;
+    [SerializeField] private EffectBundle _destroyEffects;
+    
+    private float _spawnTime;
 
-    private DestroyEffects _destroyEffects;
-
-    private void Start()
+    private void Awake()
     {
-        this._destroyEffects = GetComponent<DestroyEffects>();
+        this._spawnTime = Time.time;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Damageable d = other.gameObject.GetComponent<Damageable>();
-        if (d)
-        {
-            if (d.Team == this.Team) return;
-            d.ModifyHealth(-this.Damage, this);
-        }
+        if (Time.time - this._spawnTime < this.WarmupTime)
+            return;
+        
+        ITeamable teamable = other.gameObject.GetComponent<ITeamable>();
+        if (teamable != null && teamable.Team == this.Team && !this.FriendlyFire)
+            return;
+        
+        IDamageable damageable = other.gameObject.GetComponent<IDamageable>();
+        damageable?.TakeDamage(this.Damage, this);
 
         DamageSource damageSource = other.gameObject.GetComponent<DamageSource>();
         if (damageSource && !damageSource.BlocksOtherProjectiles)
@@ -34,7 +46,7 @@ public class DamageSource : MonoBehaviour
 
         if (!this.Piercing)
         {
-            this._destroyEffects?.Destroy(this.transform.position);
+            this._destroyEffects?.Play(this.transform.position);
             Destroy(this.gameObject);
         }
     }

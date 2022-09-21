@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,21 +10,23 @@ public class Boss : MonoBehaviour
 {
     private Coroutine _attackCoroutine;
 
-    private int _position = 1;
     [Header("Movement")]
     [SerializeField] private float _moveTime = 1.5f;
     [SerializeField] private Transform[] _positions;
+    [SerializeField] private int _position = 1;
     [SerializeField] private float _baseHeight = -4.93f;
     [SerializeField] private float _hideHeight = -14f;
     [SerializeField] private float _hideTime = 5f;
 
     [Header("Attacks")]
-    [SerializeField] private float _laserTime = 10f;
+    [SerializeField] private float _laserAttackChance = 0.1f;
+
+    [SerializeField] private Transform _projectileSpawnLocation;
 
     [Header("Effects")]
     [SerializeField] private ProjectileMovement _rocket;
     [SerializeField] private ProjectileMovement _energyBall;
-    [SerializeField] private ParticleSystem _explosion;
+    [SerializeField] private EffectBundle _explosion;
     
     private int _phase = 1;
 
@@ -34,6 +37,30 @@ public class Boss : MonoBehaviour
 
     private Animator _animator;
 
+    private static int _laserAttackerThisTurn = -1;
+
+    private Health _health;
+    
+    // Solves a race condition
+    private static void DecideLaserAttack()
+    {
+        if (_laserAttackerThisTurn != -1) return;
+        IEnumerable<Boss> validTargets = _bosses.Where(x => x._position == 2);
+        foreach (Boss boss in validTargets)
+        {
+            if (Random.value >= 1 - boss._laserAttackChance)
+            {
+                _laserAttackerThisTurn = boss._index;
+                break;
+            }
+        }
+    }
+
+    private static void ResetLaserAttack()
+    {
+        _laserAttackerThisTurn = -1;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,7 +68,10 @@ public class Boss : MonoBehaviour
         this._animator.enabled = false;
         this._index = _nextIndex++;
         _bosses.Add(this);
+        this.transform.position = this._positions[this._position].position;
         BossStart();
+        this._health = GetComponentInChildren<Health>();
+        this._health.OnKill += DestroyEffects;
     }
 
     // Update is called once per frame
@@ -57,15 +87,53 @@ public class Boss : MonoBehaviour
 
     private void SpawnProjectile(int projNum, int max)
     {
+        
     }
 
-    private IEnumerator LaserAttackCoroutine()
+    private void DestroyEffects(object sender, DamageSource killer)
+    {
+        StopAllCoroutines();
+        StartCoroutine(OnDestroyCoroutine());
+    }
+
+    private IEnumerator OnDestroyCoroutine()
+    {
+        this._health.gameObject.SetActive(false);
+        Vector3 sunkenPos = this.transform.position;
+        sunkenPos.y = this._hideHeight;
+
+        Vector3 oldPos = this.transform.position;
+        
+        for (float i = 0; i < 5; i += Time.fixedDeltaTime)
+        {
+            if (Random.value >= 0.3)
+            {
+                Vector3 placement = this.transform.position + Random.insideUnitSphere * 5;
+                this._explosion.Play(placement);
+            }
+
+            this.transform.position = Vector3.Lerp(oldPos, sunkenPos, i / 5);
+
+            yield return new WaitForFixedUpdate();
+        }
+        
+        this.gameObject.SetActive(false);
+    }
+
+    private void DoLaserAttack()
     {
         Boss other = _bosses.Find(x => x._index != this._index);
-        other.StopAllCoroutines();
-        other.transform.position = other._positions[other._position].position;
-        other.StartCoroutine(other.LaserAttackHideCoroutine());
+        if (other.isActiveAndEnabled)
+        {
+            other.StopAllCoroutines();
+            other.StartCoroutine(other.LaserAttackHideCoroutine());
+        }
+        this._attackCoroutine = StartCoroutine(LaserAttackCoroutine(other));
+        ResetLaserAttack();
+    }
 
+    private IEnumerator LaserAttackCoroutine(Boss other)
+    {
         yield return new WaitForSeconds(this._hideTime);
 
         Transform[] positions = this._positions!.Clone() as Transform[]; // Shallow copy doesn't return type correctly, so force it
@@ -93,11 +161,12 @@ public class Boss : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
-        yield return new WaitForSeconds(this._laserTime);
+        yield return new WaitForSeconds(10f);
         
         // Update hidePosition as it has now changed (see LaserAttackCoroutine)
-        hidePosition = this.transform.position;
+        hidePosition = this._positions[this._position].position;
         hidePosition.y = this._hideHeight;
+        this.transform.rotation = Quaternion.Euler(0, 180 - this.transform.rotation.eulerAngles.y, 0);
         
         for (float i = 0; i < this._hideTime; i += Time.deltaTime)
         {
@@ -111,10 +180,16 @@ public class Boss : MonoBehaviour
 
     private IEnumerator MainAttackCoroutine()
     {
+        DecideLaserAttack();
         for (int i = 0; i < 3; i++)
         {
             // do missile attack;
-            if(this._explosion) Instantiate(this._explosion, this.transform.position + (Vector3.forward * 5), Quaternion.identity);
+            if (this._rocket)
+            {
+                Instantiate(this._rocket, this._projectileSpawnLocation.position, this._projectileSpawnLocation.rotation);
+                Instantiate(this._rocket, this._projectileSpawnLocation.position + Vector3.forward, this._projectileSpawnLocation.rotation);
+                Instantiate(this._rocket, this._projectileSpawnLocation.position + Vector3.back, this._projectileSpawnLocation.rotation);
+            }
             yield return new WaitForSeconds(1.5f);
         }
         for (int i = 0; i < 3; i++)
@@ -126,37 +201,34 @@ public class Boss : MonoBehaviour
 
         if (this._positions.Length > 1 && this._phase >= 1)
         {
-            if (this._position == 2 && Random.value > 0f) // Value is artificially high for testing purposes.
+            if (_laserAttackerThisTurn == this._index) // Value is artificially high for testing purposes.
             {
                 // Use the laser attack
-                this._attackCoroutine = StartCoroutine(LaserAttackCoroutine());
-                yield break;
+                DoLaserAttack();
             }
-            //move
-            int old = this._position;
-            int pos;
-            do
+            else if (_laserAttackerThisTurn == -1)
             {
-                pos = Mathf.RoundToInt(Random.Range(0, this._positions.Length));
-            } while (pos == old);
-            int difference = Mathf.Abs(this._position - pos);
-            this._position = pos;
+                //move
+                int old = this._position;
+                int pos;
+                do
+                {
+                    pos = Mathf.RoundToInt(Random.Range(0, this._positions.Length));
+                } while (pos == old);
+                int difference = Mathf.Abs(this._position - pos);
+                this._position = pos;
 
-            Debug.Log($"Moving {this.gameObject.name} to position {pos} from {old}");
-            Debug.Log(difference);
-            for (float i = 0; i < this._moveTime * difference; i += Time.deltaTime)
-            {
-                Debug.Log($"{Time.time}: iterating {i}");
-                this.transform.position = Vector3.Lerp(this._positions[old].position, this._positions[pos].position, i / (this._moveTime * difference));
-                yield return new WaitForEndOfFrame();
+                for (float i = 0; i < this._moveTime * difference; i += Time.deltaTime)
+                {
+                    this.transform.position = Vector3.Lerp(this._positions[old].position, this._positions[pos].position, i / (this._moveTime * difference));
+                    yield return new WaitForEndOfFrame();
+                }
+
+                this.transform.position = this._positions[pos].position;
+
+                yield return new WaitForSeconds(2f);
+                this._attackCoroutine = StartCoroutine(MainAttackCoroutine());
             }
-
-            this.transform.position = this._positions[pos].position;
-            
-            Debug.Log($"Finished moving {this.gameObject.name}; restarting loop");
-
-            yield return new WaitForSeconds(2f);
-            this._attackCoroutine = StartCoroutine(MainAttackCoroutine());
         }
     }
 }

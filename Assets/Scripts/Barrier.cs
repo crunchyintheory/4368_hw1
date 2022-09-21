@@ -36,6 +36,7 @@ public class Barrier : MonoBehaviour
 
     [SerializeField] private short _group;
     [SerializeField] private AnimationCurve _movementCurve;
+    [SerializeField] private float _animationSpeed = 1f;
 
     [Header("Colors - HDR Hack")] 
     [SerializeField, ColorUsage(false, true)] private Color _color1;
@@ -72,7 +73,7 @@ public class Barrier : MonoBehaviour
 
     private IEnumerator ActivationAnimation(bool forwards = true)
     {
-        for (float i = 0; i < 1; i+=Time.fixedDeltaTime)
+        for (float i = 0; i < 1; i+=Time.fixedDeltaTime * this._animationSpeed)
         {
             // Play animation backwards if we are going back up.
             float delta = forwards ? this._movementCurve.Evaluate(1 - i) : this._movementCurve.Evaluate(i);

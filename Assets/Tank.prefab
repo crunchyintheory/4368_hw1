@@ -31,6 +31,93 @@ Transform:
   m_Father: {fileID: 4802137816574620057}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1604882115
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1604882116}
+  - component: {fileID: 1604882117}
+  - component: {fileID: 1604882119}
+  - component: {fileID: 1604882118}
+  m_Layer: 0
+  m_Name: TankHealth
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1604882116
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604882115}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4122715024912857649}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1604882117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604882115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dfccc944dc241c4aa8f0b433287cb84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _initialHealth: 5
+  _team: 0
+  _damageCap: 1
+  _destroyOnDeath: 1
+  _damageEffects: {fileID: 1604882118}
+--- !u!65 &1604882119
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604882115}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 1.2496091, z: 1.5}
+  m_Center: {x: 0, y: 0.12480456, z: 0}
+--- !u!114 &1604882118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604882115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e23b2c57e3635854b97a2e83dbd935e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sounds: {fileID: 8300000, guid: 7869df5e56d4bf84c9ef2acb89fac57c, type: 3}
+  Volume: 0.05
+  Particles: {fileID: 0}
+  _debounceGroup: 
+  DebounceSound: 0.1
+  _shadowMeshParticleEffect: {fileID: 1159853906390091015, guid: d7ea775fe2521ab4d845a9eb54d38d6e, type: 3}
+  _transformsToShadow:
+  - {fileID: 4122715025006072255}
+  - {fileID: 4122715024525354427}
+  - {fileID: 4122715024287417227}
+  - {fileID: 4122715024681915688}
 --- !u!1 &3866307122348744748
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,7 +531,6 @@ GameObject:
   - component: {fileID: 4122715024912857653}
   - component: {fileID: 6718299845587326339}
   - component: {fileID: 1407016821}
-  - component: {fileID: 1407016814}
   m_Layer: 0
   m_Name: Tank
   m_TagString: Untagged
@@ -467,6 +553,7 @@ Transform:
   - {fileID: 4122715023743749555}
   - {fileID: 4122715024468116974}
   - {fileID: 8381899278796332157}
+  - {fileID: 1604882116}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -490,6 +577,7 @@ MonoBehaviour:
   _speedParticlesThreshold: 0.26
   _speedParticles: {fileID: 4122715025308830279}
   _bodyPivot: {fileID: 1480640648435636161}
+  _health: {fileID: 0}
 --- !u!114 &4122715024912857654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -635,20 +723,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1407016814
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4122715024912857651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7dcdfac7a21a0849960f2b5e579b8ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _initialHealth: 0
-  _team: 0
 --- !u!1 &4122715025006072248
 GameObject:
   m_ObjectHideFlags: 0

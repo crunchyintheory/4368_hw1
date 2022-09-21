@@ -194,7 +194,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _initialVelocity: {x: 0, y: 0, z: 3}
-  Rotation: {x: 0, y: 0, z: 0, w: 1}
 --- !u!114 &6340393190788601511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,9 +206,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96532bb50e16f04cbea545d2c13607a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DestroySounds: {fileID: 0}
-  Volume: 0
-  DestroyParticles: {fileID: 6118104933962189372, guid: 8a37bfc84d43e254e98bb84471f375bc, type: 3}
+  Sounds: {fileID: 8300000, guid: 54256a8e8eb6bca4aac14a57ce61403b, type: 3}
+  Volume: 0.1
+  Particles: {fileID: 6118104933962189372, guid: 8a37bfc84d43e254e98bb84471f375bc, type: 3}
+  _debounceGroup: 
+  DebounceSound: 0.1
 --- !u!114 &6340393190788601512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,7 +223,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deaec605d9a9f3346a996576701478c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Team: 1
+  _team: 0
   Damage: 1
   Piercing: 0
   BlocksOtherProjectiles: 0
+  FriendlyFire: 0
+  WarmupTime: 0
+  _destroyEffects: {fileID: 6340393190788601511}

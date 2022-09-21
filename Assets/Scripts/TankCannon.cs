@@ -13,12 +13,12 @@ public class TankCannon : MonoBehaviour
     private Plane _groundPlane = new Plane(Vector3.up, 0);
 
     private float _lastShot = 0;
-    private Damageable _player;
+    private Health _player;
     
     // Start is called before the first frame update
     void Awake()
     {
-        this._player = GetComponent<Damageable>();
+        this._player = GetComponentInChildren<Health>();
     }
 
     // Update is called once per frame
@@ -37,7 +37,6 @@ public class TankCannon : MonoBehaviour
         {
             this._lastShot = Time.time;
             ProjectileMovement shot = Instantiate(this._shot, this._shotSpawnPosition.position, this._cannonPivot.rotation);
-            shot.Rotation = this._cannonPivot.rotation;
             shot.GetComponent<DamageSource>().Team = this._player.Team;
         }
     }

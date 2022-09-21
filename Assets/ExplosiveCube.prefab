@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8695869679947494853}
   - component: {fileID: 7316483887004788014}
-  - component: {fileID: 2777378116101656999}
+  - component: {fileID: 4029791385956034591}
   m_Layer: 0
   m_Name: ExplosiveCube
   m_TagString: Untagged
@@ -47,7 +47,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2777378116101656999
+--- !u!114 &4029791385956034591
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -56,11 +56,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 5500015137217225146}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7dcdfac7a21a0849960f2b5e579b8ad, type: 3}
+  m_Script: {fileID: 11500000, guid: 0dfccc944dc241c4aa8f0b433287cb84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialHealth: 1
-  _team: 1
+  _initialHealth: 0
+  _team: -1
+  _damageCap: 0
+  _destroyOnDeath: 0
+  _takeDamageSound: {fileID: 0}
 --- !u!1 &6841622220544016012
 GameObject:
   m_ObjectHideFlags: 0

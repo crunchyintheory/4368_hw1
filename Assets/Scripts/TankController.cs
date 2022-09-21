@@ -15,6 +15,7 @@ public class TankController : MonoBehaviour
 
     [SerializeField] private ParticleSystem _speedParticles;
     [SerializeField] private Transform _bodyPivot;
+    [SerializeField] private Health _health;
 
     public float MaxSpeed
     {
@@ -42,6 +43,8 @@ public class TankController : MonoBehaviour
         this._rb = GetComponent<Rigidbody>();
         this._movementAudio = GetComponent<AudioSource>();
         this._character = GetComponent<CharacterController>();
+        this._health = GetComponentInChildren<Health>();
+        this._health.OnKill += (sender, touched) => Destroy(this);
     }
 
     private void Update()
@@ -52,10 +55,10 @@ public class TankController : MonoBehaviour
         //this._moveSpeed = this._maxSpeed;
         //ScaleMoveSpeed();
 
-        /*float inputMagnitude = Vector2.ClampMagnitude(new Vector2(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal")), 1).sqrMagnitude / 2;
+        float inputMagnitude = Vector2.ClampMagnitude(new Vector2(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal")), 1).sqrMagnitude / 2;
         this._movementAudio.volume = inputMagnitude;
         var emission = this._speedParticles.emission;
-        emission.rateOverTime = 30f * inputMagnitude;*/
+        emission.rateOverTime = 30f * inputMagnitude;
     }
 
     // Not sure why max speed does nothing here, but this fixes it somewhat

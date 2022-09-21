@@ -4,8 +4,12 @@ using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(TankController))]
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, ITeamable
 {
+    public int Team
+    {
+        get => 0;
+    }
     [SerializeField] private int _maxHealth = 3;
     private int _currentHealth;
     private int _treasureCount = 0;

@@ -219,5 +219,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _animationSpeed: 2
   _color1: {r: 1.4393989, g: 0, b: 2.6170878, a: 0}
   _color2: {r: 2.6136672, g: 2.1780562, b: 0, a: 0}

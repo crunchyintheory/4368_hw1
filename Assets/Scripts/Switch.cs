@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Switch : Damageable
+public class Switch : MonoBehaviour, IDamageable
 {
     [SerializeField] private MeshRenderer _colorMesh;
     private Material _material;
@@ -27,7 +27,7 @@ public class Switch : Damageable
         this._material.SetVector("_EmissiveColor", Barrier.GroupColors[Barrier.ActiveGroup]);
     }
     
-    public override void ModifyHealth(float delta, DamageSource source)
+    public void TakeDamage(int damage, DamageSource source)
     {
         Barrier.Switch();
     }

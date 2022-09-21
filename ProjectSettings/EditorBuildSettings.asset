@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Sandbox.unity
-    guid: 9dcbeb150d20ac2458b822bc8219d43c
+    path: Assets/Scenes/BossFight.unity
+    guid: 9fcb1429cd820b84d9851ba3376baf4b
   m_configObjects: {}
