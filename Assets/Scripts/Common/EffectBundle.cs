@@ -11,6 +11,8 @@ public class EffectBundle : MonoBehaviour
     [SerializeField] public string _debounceGroup = "";
     [SerializeField] public float DebounceSound = 0.1f;
 
+    [SerializeField] private bool _shouldShakeScreen = false;
+
     private static Dictionary<string, float> debounces = new();
 
     private void Start()
@@ -38,6 +40,11 @@ public class EffectBundle : MonoBehaviour
         if (this.Particles)
         {
             Instantiate(this.Particles, position, Quaternion.identity);
+        }
+
+        if (this._shouldShakeScreen)
+        {
+            MainCamera.Shake();
         }
     }
 }

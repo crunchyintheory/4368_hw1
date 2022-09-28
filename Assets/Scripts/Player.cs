@@ -49,6 +49,8 @@ public class Player : MonoBehaviour, ITeamable
         
     }
 
+    // IMPORTANT: The player damage script is NOT in this file, see TankHealth gameobject in the prefab!
+    // This code is here for legacy purposes and is subject to removal!
     public void IncreaseHealth(int amount)
     {
         this._currentHealth = Mathf.Clamp(this._currentHealth + amount, 0, this._maxHealth);

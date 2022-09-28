@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Health : MonoBehaviour, IDamageable, ITeamable
+public class Health : MonoBehaviour, IKillable, ITeamable
 {
     [SerializeField] private int _initialHealth;
     [SerializeField] private int _team;
@@ -14,6 +14,7 @@ public class Health : MonoBehaviour, IDamageable, ITeamable
     [SerializeField] private EffectBundle _damageEffects;
 
     public int CurrentHealth { get; protected set; }
+    public int MaxHealth => this._initialHealth;
 
     public int Team
     {
@@ -23,11 +24,9 @@ public class Health : MonoBehaviour, IDamageable, ITeamable
 
     private DamageSource _lastTouched;
 
-    public delegate void DamagedEventHandler(object sender, DamageSource source);
-    public event DamagedEventHandler OnDamaged;
+    public event IDamageable.DamagedEventHandler OnDamaged;
 
-    public delegate void KilledEventHandler(object sender, DamageSource lastTouched);
-    public event KilledEventHandler OnKill;
+    public event IKillable.KilledEventHandler OnKilled;
 
     private void Start()
     {
@@ -48,7 +47,7 @@ public class Health : MonoBehaviour, IDamageable, ITeamable
 
     public void Kill()
     {
-        this.OnKill?.Invoke(this, this._lastTouched);
+        this.OnKilled?.Invoke(this, this._lastTouched);
         if(!this._destroyOnDeath) Destroy(this.gameObject);
     }
 }

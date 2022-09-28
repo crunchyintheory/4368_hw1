@@ -112,6 +112,7 @@ MonoBehaviour:
   Particles: {fileID: 0}
   _debounceGroup: 
   DebounceSound: 0.1
+  _shouldShakeScreen: 1
   _shadowMeshParticleEffect: {fileID: 1159853906390091015, guid: d7ea775fe2521ab4d845a9eb54d38d6e, type: 3}
   _transformsToShadow:
   - {fileID: 4122715025006072255}

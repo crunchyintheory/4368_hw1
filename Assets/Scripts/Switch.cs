@@ -7,6 +7,8 @@ public class Switch : MonoBehaviour, IDamageable
 {
     [SerializeField] private MeshRenderer _colorMesh;
     private Material _material;
+
+    public event IDamageable.DamagedEventHandler OnDamaged;
     
     // Start is called before the first frame update
     void Start()
@@ -29,6 +31,7 @@ public class Switch : MonoBehaviour, IDamageable
     
     public void TakeDamage(int damage, DamageSource source)
     {
+        this.OnDamaged?.Invoke(this, source);
         Barrier.Switch();
     }
 }

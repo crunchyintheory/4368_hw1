@@ -44,7 +44,7 @@ public class TankController : MonoBehaviour
         this._movementAudio = GetComponent<AudioSource>();
         this._character = GetComponent<CharacterController>();
         this._health = GetComponentInChildren<Health>();
-        this._health.OnKill += (sender, touched) => Destroy(this);
+        this._health.OnKilled += (sender, touched) => Destroy(this.gameObject);
     }
 
     private void Update()

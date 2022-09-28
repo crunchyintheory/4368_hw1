@@ -71,7 +71,7 @@ public class Boss : MonoBehaviour
         this.transform.position = this._positions[this._position].position;
         BossStart();
         this._health = GetComponentInChildren<Health>();
-        this._health.OnKill += DestroyEffects;
+        this._health.OnKilled += DestroyEffects;
     }
 
     // Update is called once per frame
