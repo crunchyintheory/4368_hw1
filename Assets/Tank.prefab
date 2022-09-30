@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &124009997
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 124009998}
+  m_Layer: 0
+  m_Name: ShotParticleLocation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &124009998
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 124009997}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.184}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4802137816574620057}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &707399902
 GameObject:
   m_ObjectHideFlags: 0
@@ -532,6 +563,7 @@ GameObject:
   - component: {fileID: 4122715024912857653}
   - component: {fileID: 6718299845587326339}
   - component: {fileID: 1407016821}
+  - component: {fileID: 1852338103}
   m_Layer: 0
   m_Name: Tank
   m_TagString: Untagged
@@ -706,6 +738,8 @@ MonoBehaviour:
   _shotCooldown: 0.5
   _shot: {fileID: 6340393190788601510, guid: ed68f9060a24d5942991b747aea24a3b, type: 3}
   _shotSpawnPosition: {fileID: 707399903}
+  _shotEffectPosition: {fileID: 124009998}
+  _shotEffects: {fileID: 1852338103}
 --- !u!143 &1407016821
 CharacterController:
   m_ObjectHideFlags: 0
@@ -724,6 +758,24 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1852338103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4122715024912857651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c96532bb50e16f04cbea545d2c13607a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sounds: {fileID: 0}
+  Volume: 0
+  Particles: {fileID: 6118104933962189372, guid: cedeb2414745cbc478c60e401e292723, type: 3}
+  _debounceGroup: 
+  DebounceSound: 0.1
+  _shouldShakeScreen: 0
 --- !u!1 &4122715025006072248
 GameObject:
   m_ObjectHideFlags: 0
@@ -837,6 +889,7 @@ Transform:
   m_Children:
   - {fileID: 4122715025006072255}
   - {fileID: 707399903}
+  - {fileID: 124009998}
   m_Father: {fileID: 4122715023743749555}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

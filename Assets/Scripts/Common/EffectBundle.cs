@@ -30,6 +30,11 @@ public class EffectBundle : MonoBehaviour
 
     public virtual void Play(Vector3 position)
     {
+        Play(position, null);
+    }
+
+    public virtual void Play(Vector3 position, Transform parent)
+    {
         float lastPlayed = debounces.GetValueOrDefault(this._debounceGroup, 0);
         if (this.Sounds && (this.DebounceSound <= 0 || Time.time - lastPlayed > this.DebounceSound))
         {
@@ -39,7 +44,7 @@ public class EffectBundle : MonoBehaviour
 
         if (this.Particles)
         {
-            Instantiate(this.Particles, position, Quaternion.identity);
+            Instantiate(this.Particles, position, Quaternion.identity, parent);
         }
 
         if (this._shouldShakeScreen)
