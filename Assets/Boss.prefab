@@ -360,6 +360,7 @@ MonoBehaviour:
   Particles: {fileID: 0}
   _debounceGroup: 
   DebounceSound: 0
+  _shouldShakeScreen: 0
   _shadowMeshParticleEffect: {fileID: 1159853906390091015, guid: d7ea775fe2521ab4d845a9eb54d38d6e, type: 3}
   _transformsToShadow:
   - {fileID: 3875279442448644726}
@@ -382,6 +383,7 @@ MonoBehaviour:
   Particles: {fileID: 7829030957035343067, guid: cbd73f0e5ebd4364f9ca5af466526a15, type: 3}
   _debounceGroup: explosion_die
   DebounceSound: 0.2
+  _shouldShakeScreen: 0
 --- !u!1 &3875279442448644725
 GameObject:
   m_ObjectHideFlags: 0
@@ -576,8 +578,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 18.024578, y: 1, z: 0.8511559}
+  m_Center: {x: -1.635854, y: 0, z: 0}
 --- !u!114 &1978204987953506422
 MonoBehaviour:
   m_ObjectHideFlags: 0

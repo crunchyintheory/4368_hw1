@@ -4995,6 +4995,9 @@ MonoBehaviour:
   FriendlyFire: 1
   WarmupTime: 0.3
   _destroyEffects: {fileID: 1356618345}
+  _collisionMask:
+    serializedVersion: 2
+    m_Bits: 119
 --- !u!114 &1356618345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5012,6 +5015,7 @@ MonoBehaviour:
   Particles: {fileID: 7829030957035343067, guid: cbd73f0e5ebd4364f9ca5af466526a15, type: 3}
   _debounceGroup: explosion
   DebounceSound: 0.1
+  _shouldShakeScreen: 0
 --- !u!1 &7420345377547691096
 GameObject:
   m_ObjectHideFlags: 0

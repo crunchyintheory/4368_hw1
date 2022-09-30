@@ -20,6 +20,8 @@ public class DamageSource : MonoBehaviour, ITeamable
     [SerializeField] public bool FriendlyFire = false;
     [SerializeField] public float WarmupTime = 0;
     [SerializeField] private EffectBundle _destroyEffects;
+
+    [SerializeField] private LayerMask _collisionMask;
     
     private float _spawnTime;
 
@@ -30,6 +32,12 @@ public class DamageSource : MonoBehaviour, ITeamable
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(this._collisionMask.value);
+        if ((this._collisionMask.value & 1<<other.gameObject.layer) == 0)
+        {
+            return;
+        }
+
         if (Time.time - this._spawnTime < this.WarmupTime)
             return;
         

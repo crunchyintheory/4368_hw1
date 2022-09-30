@@ -211,6 +211,7 @@ MonoBehaviour:
   Particles: {fileID: 6118104933962189372, guid: 8a37bfc84d43e254e98bb84471f375bc, type: 3}
   _debounceGroup: 
   DebounceSound: 0.1
+  _shouldShakeScreen: 0
 --- !u!114 &6340393190788601512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,3 +231,6 @@ MonoBehaviour:
   FriendlyFire: 0
   WarmupTime: 0
   _destroyEffects: {fileID: 6340393190788601511}
+  _collisionMask:
+    serializedVersion: 2
+    m_Bits: 119
