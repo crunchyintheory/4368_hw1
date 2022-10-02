@@ -6,6 +6,7 @@ using UnityEngine;
 public class Switch : MonoBehaviour, IDamageable
 {
     [SerializeField] private MeshRenderer _colorMesh;
+    [SerializeField] private EffectBundle _effectBundle;
     private Material _material;
 
     public event IDamageable.DamagedEventHandler OnDamaged;
@@ -33,5 +34,6 @@ public class Switch : MonoBehaviour, IDamageable
     {
         this.OnDamaged?.Invoke(this, source);
         Barrier.Switch();
+        this._effectBundle.Play(this.transform.position);
     }
 }

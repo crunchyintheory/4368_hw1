@@ -22,6 +22,12 @@ public class DamageSource : MonoBehaviour, ITeamable
     [SerializeField] private EffectBundle _destroyEffects;
 
     [SerializeField] private LayerMask _collisionMask;
+
+    public LayerMask CollisionMask
+    {
+        get => this._collisionMask;
+        set => this._collisionMask = value;
+    }
     
     private float _spawnTime;
 

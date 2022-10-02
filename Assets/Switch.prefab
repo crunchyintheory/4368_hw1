@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 8924540052930810843}
   - component: {fileID: -2525171250604521096}
   - component: {fileID: 868532831}
+  - component: {fileID: 3979164112392489357}
   m_Layer: 0
   m_Name: Switch
   m_TagString: Untagged
@@ -163,9 +164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a41cebb2ec5eff41bab0d067aa8904e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialHealth: 0
-  _team: 1
   _colorMesh: {fileID: 8924540053059946066}
+  _effectBundle: {fileID: 3979164112392489357}
 --- !u!65 &868532831
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -179,6 +179,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.63990873, z: 0.3886032}
   m_Center: {x: 0, y: -0.18004563, z: 0}
+--- !u!114 &3979164112392489357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8924540052930810840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c96532bb50e16f04cbea545d2c13607a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sounds: {fileID: 8300000, guid: 0a761523785c8cf4bbcd41e9ff1c37af, type: 3}
+  Volume: 1
+  Particles: {fileID: 0}
+  _debounceGroup: 
+  DebounceSound: 0.1
+  _shouldShakeScreen: 0
 --- !u!1 &8924540053059946065
 GameObject:
   m_ObjectHideFlags: 0

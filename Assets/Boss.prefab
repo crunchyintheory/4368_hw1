@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 148712326}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ProjectileSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3875279440729938762}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Art
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 3875279441126725927}
   - component: {fileID: 3875279441126725926}
   - component: {fileID: 3875279441126725925}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,7 +174,7 @@ GameObject:
   - component: {fileID: 3875279441582817041}
   - component: {fileID: 3875279441582817040}
   - component: {fileID: 3875279441582817047}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -272,7 +272,7 @@ GameObject:
   - component: {fileID: 504823703}
   - component: {fileID: 1219107349859155101}
   - component: {fileID: 576934000}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -320,8 +320,11 @@ MonoBehaviour:
   _hideTime: 5
   _laserAttackChance: 0.1
   _projectileSpawnLocation: {fileID: 148712326}
-  _rocket: {fileID: 8723730830308043806, guid: 83b0534ad34969d4f85b31a91d6fc9bd, type: 3}
-  _energyBall: {fileID: 6340393190788601510, guid: ed68f9060a24d5942991b747aea24a3b, type: 3}
+  _rocket: {fileID: 1356618344, guid: 83b0534ad34969d4f85b31a91d6fc9bd, type: 3}
+  _energyBall: {fileID: 6340393190788601512, guid: ed68f9060a24d5942991b747aea24a3b, type: 3}
+  _energyLayerMask:
+    serializedVersion: 2
+    m_Bits: 119
   _explosion: {fileID: 576934000}
 --- !u!95 &504823703
 Animator:
@@ -396,7 +399,7 @@ GameObject:
   - component: {fileID: 3875279442448644721}
   - component: {fileID: 3875279442448644720}
   - component: {fileID: 3875279442448644727}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -495,7 +498,7 @@ GameObject:
   - component: {fileID: 4065008213011169446}
   - component: {fileID: 1774521534179440441}
   - component: {fileID: 1978204987953506422}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -510,7 +513,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4815208776997478786}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.06, y: 15.37, z: 0}
+  m_LocalPosition: {x: 0, y: 15.37, z: 0}
   m_LocalScale: {x: 1, y: 6.9765, z: 11.808728}
   m_ConstrainProportionsScale: 0
   m_Children: []

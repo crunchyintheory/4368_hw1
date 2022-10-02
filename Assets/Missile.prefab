@@ -4997,7 +4997,7 @@ MonoBehaviour:
   _destroyEffects: {fileID: 1356618345}
   _collisionMask:
     serializedVersion: 2
-    m_Bits: 119
+    m_Bits: 375
 --- !u!114 &1356618345
 MonoBehaviour:
   m_ObjectHideFlags: 0

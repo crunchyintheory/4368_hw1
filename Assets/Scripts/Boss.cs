@@ -24,10 +24,11 @@ public class Boss : MonoBehaviour
     [SerializeField] private Transform _projectileSpawnLocation;
 
     [Header("Effects")]
-    [SerializeField] private ProjectileMovement _rocket;
-    [SerializeField] private ProjectileMovement _energyBall;
+    [SerializeField] private DamageSource _rocket;
+    [SerializeField] private DamageSource _energyBall;
+    [SerializeField] private LayerMask _energyLayerMask;
     [SerializeField] private EffectBundle _explosion;
-    
+
     private int _phase = 1;
 
     private int _index = 0;
@@ -85,9 +86,21 @@ public class Boss : MonoBehaviour
         this._attackCoroutine = StartCoroutine(MainAttackCoroutine());
     }
 
-    private void SpawnProjectile(int projNum, int max)
+    private void SpawnProjectile(int max, float maxAngle, int projNum = 0)
     {
-        
+        float angle;
+        if (max % 2 == 1)
+            angle = (maxAngle / max) * (-2 + projNum);
+        else
+            angle = (maxAngle / max) * (-2 + projNum + 0.5f);
+
+        DamageSource projectile = Instantiate(this._energyBall, this._projectileSpawnLocation.position, Quaternion.Euler(0, angle, 0) * this._projectileSpawnLocation.rotation);
+        projectile.CollisionMask = this._energyLayerMask;
+
+        if (++projNum < max)
+        {
+            SpawnProjectile(max, maxAngle, projNum);
+        }
     }
 
     private void DestroyEffects(object sender, DamageSource killer)
@@ -192,12 +205,15 @@ public class Boss : MonoBehaviour
             }
             yield return new WaitForSeconds(1.5f);
         }
-        for (int i = 0; i < 3; i++)
-        {
-            // do a projectile attack;
-            yield return new WaitForSeconds(0.25f);
-        }
-        yield return new WaitForSeconds(1.5f);
+        // do a projectile attack;
+        SpawnProjectile(5, 160);
+        yield return new WaitForSeconds(0.25f);
+        SpawnProjectile(4, 120);
+        yield return new WaitForSeconds(0.25f);
+        SpawnProjectile(5, 160);
+        yield return new WaitForSeconds(0.25f);
+        
+        yield return new WaitForSeconds(3f);
 
         if (this._positions.Length > 1 && this._phase >= 1)
         {
