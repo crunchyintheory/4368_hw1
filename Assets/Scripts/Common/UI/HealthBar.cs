@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -21,6 +22,10 @@ public class HealthBar : MonoBehaviour
     {
         this._rect = GetComponent<RectTransform>();
         this._baseWidth = this._rect.rect.width;
+    }
+
+    private void OnEnable()
+    {
         this._killables = new IKillable[this._targets.Length];
 
         float cumulativeMaxHealth = 0;
@@ -35,15 +40,17 @@ public class HealthBar : MonoBehaviour
         this._healthTickWidth = this._baseWidth / cumulativeMaxHealth;
     }
 
+    private void OnDisable()
+    {
+        for (int i = 0; i < this._targets.Length; i++)
+        {
+            this._killables[i].OnDamaged -= OnTargetDamaged;
+        }        
+    }
+
     public int ComputeCurrentCumulativeHealth()
     {
-        int health = 0;
-        foreach (IKillable killable in _killables)
-        {
-            health += killable.CurrentHealth;
-        }
-
-        return health;
+        return this._killables.Sum(killable => killable.CurrentHealth);
     }
 
     private void OnTargetDamaged(IDamageable sender, DamageSource source)

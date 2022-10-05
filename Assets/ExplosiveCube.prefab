@@ -10,7 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8695869679947494853}
   - component: {fileID: 7316483887004788014}
-  - component: {fileID: 4029791385956034591}
+  - component: {fileID: 6042330017668070816}
+  - component: {fileID: 727741261}
+  - component: {fileID: 727741262}
   m_Layer: 0
   m_Name: ExplosiveCube
   m_TagString: Untagged
@@ -42,12 +44,12 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5500015137217225146}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4029791385956034591
+--- !u!114 &6042330017668070816
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -56,14 +58,51 @@ MonoBehaviour:
   m_GameObject: {fileID: 5500015137217225146}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dfccc944dc241c4aa8f0b433287cb84, type: 3}
+  m_Script: {fileID: 11500000, guid: 055f8aacaad892644860a6606919d822, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialHealth: 0
-  _team: -1
-  _damageCap: 0
-  _destroyOnDeath: 0
-  _takeDamageSound: {fileID: 0}
+  _visual: {fileID: 6841622220544016012}
+  _enableEffects: {fileID: 727741261}
+  _enableWaitTime: 1.5
+  _disableEffects: {fileID: 0}
+  _disableWaitTime: 0
+  _destroyEffects: {fileID: 727741262}
+--- !u!114 &727741261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5500015137217225146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c96532bb50e16f04cbea545d2c13607a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sounds: {fileID: 0}
+  Volume: 0
+  Particles: {fileID: 7425164106421179310, guid: bdb87e90f734e774081e427da2591bb6, type: 3}
+  _debounceGroup: 
+  DebounceSound: 0.1
+  _shouldShakeScreen: 0
+--- !u!114 &727741262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5500015137217225146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c96532bb50e16f04cbea545d2c13607a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sounds: {fileID: 8300000, guid: efc5c8b47a753e142926968f6c37d8ba, type: 3}
+  Volume: 0.5
+  Particles: {fileID: 7829030957035343067, guid: cbd73f0e5ebd4364f9ca5af466526a15, type: 3}
+  _debounceGroup: 
+  DebounceSound: 0.1
+  _shouldShakeScreen: 0
 --- !u!1 &6841622220544016012
 GameObject:
   m_ObjectHideFlags: 0

@@ -4946,6 +4946,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _initialVelocity: {x: 0, y: 0, z: 2}
+  _life: 60
   _art: {fileID: 7904253177736822498}
 --- !u!65 &2089189747607422564
 BoxCollider:
@@ -5011,7 +5012,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sounds: {fileID: 8300000, guid: efc5c8b47a753e142926968f6c37d8ba, type: 3}
-  Volume: 0.5
+  Volume: 0.25
   Particles: {fileID: 7829030957035343067, guid: cbd73f0e5ebd4364f9ca5af466526a15, type: 3}
   _debounceGroup: explosion
   DebounceSound: 0.1

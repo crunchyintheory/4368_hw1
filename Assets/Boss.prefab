@@ -325,10 +325,10 @@ MonoBehaviour:
   _energyLayerMask:
     serializedVersion: 2
     m_Bits: 119
-  _explosion: {fileID: 576934000}
   _beamTemplate: {fileID: 1828699040, guid: 3b6a833c2541ee246b52b7ff75ddadf3, type: 3}
   _energyCharge: {fileID: 1120990314, guid: a8d1218f19b8080458357d5d8b79a7c9, type: 3}
   _missileCharge: {fileID: 7425164106421179310, guid: bdb87e90f734e774081e427da2591bb6, type: 3}
+  _explosion: {fileID: 576934000}
 --- !u!95 &504823703
 Animator:
   serializedVersion: 4
@@ -598,7 +598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dfccc944dc241c4aa8f0b433287cb84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialHealth: 5
+  _initialHealth: 100
   _team: 1
   _damageCap: 0
   _damageDebounce: 0.5

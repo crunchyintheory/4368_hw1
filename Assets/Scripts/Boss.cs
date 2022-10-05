@@ -42,7 +42,11 @@ public class Boss : MonoBehaviour
     private int _index = 0;
     private static int _nextIndex = 0;
 
-    private static List<Boss> _bosses = new List<Boss>();
+    private static List<Boss> _bosses = new();
+    public static List<Boss> Bosses
+    {
+        get => _bosses;
+    }
 
     private Animator _animator;
 
@@ -87,8 +91,17 @@ public class Boss : MonoBehaviour
         _bosses.Add(this);
         this.transform.position = this._positions[this._position].position;
         BossStart();
+    }
+
+    void OnEnable()
+    {
         this._health = GetComponentInChildren<Health>();
         this._health.OnKilled += DestroyEffects;
+    }
+
+    void OnDisable()
+    {
+        this._health.OnKilled -= DestroyEffects;
     }
 
     // Update is called once per frame
@@ -156,6 +169,7 @@ public class Boss : MonoBehaviour
 
     private void DoLaserAttack()
     {
+        ExplosiveCube.DisableAll();
         this._attackCoroutine = StartCoroutine(LaserAttackCoroutine());
         ResetLaserAttack();
     }
@@ -190,6 +204,7 @@ public class Boss : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
         this._attackCoroutine = StartCoroutine(MainAttackCoroutine());
+        ExplosiveCube.EnableAll();
     }
 
     private IEnumerator LaserAttackHideCoroutine()
