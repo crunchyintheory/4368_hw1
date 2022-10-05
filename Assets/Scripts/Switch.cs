@@ -32,6 +32,7 @@ public class Switch : MonoBehaviour, IDamageable
     
     public void TakeDamage(int damage, DamageSource source)
     {
+        if (source.Team != 0) return; // Only player can do this!
         this.OnDamaged?.Invoke(this, source);
         Barrier.Switch();
         this._effectBundle.Play(this.transform.position);

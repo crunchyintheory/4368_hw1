@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [SelectionBase, RequireComponent(typeof(Animator))]
 public class Boss : MonoBehaviour
@@ -20,13 +22,19 @@ public class Boss : MonoBehaviour
 
     [Header("Attacks")]
     [SerializeField] private float _laserAttackChance = 0.1f;
+    private static float _currentLaserAttackChanceMultiplier = 1.5f;
 
     [SerializeField] private Transform _projectileSpawnLocation;
 
-    [Header("Effects")]
+    [Header("Attacks")]
     [SerializeField] private DamageSource _rocket;
     [SerializeField] private DamageSource _energyBall;
     [SerializeField] private LayerMask _energyLayerMask;
+    [SerializeField] private Beam _beamTemplate;
+
+    [Header("Feedback")]
+    [SerializeField] private ParticleSystem _energyCharge;
+    [SerializeField] private ParticleSystem _missileCharge;
     [SerializeField] private EffectBundle _explosion;
 
     private int _phase = 1;
@@ -41,6 +49,8 @@ public class Boss : MonoBehaviour
     private static int _laserAttackerThisTurn = -1;
 
     private Health _health;
+
+    private Beam _beam;
     
     // Solves a race condition
     private static void DecideLaserAttack()
@@ -49,16 +59,22 @@ public class Boss : MonoBehaviour
         IEnumerable<Boss> validTargets = _bosses.Where(x => x._position == 2);
         foreach (Boss boss in validTargets)
         {
-            if (Random.value >= 1 - boss._laserAttackChance)
+            if (Random.value >= 1 - boss._laserAttackChance * _currentLaserAttackChanceMultiplier)
             {
                 _laserAttackerThisTurn = boss._index;
                 break;
             }
         }
+
+        if (_laserAttackerThisTurn == -1)
+        {
+            _currentLaserAttackChanceMultiplier *= 1f;
+        }
     }
 
     private static void ResetLaserAttack()
     {
+        _currentLaserAttackChanceMultiplier = 1;
         _laserAttackerThisTurn = -1;
     }
 
@@ -96,6 +112,9 @@ public class Boss : MonoBehaviour
 
         DamageSource projectile = Instantiate(this._energyBall, this._projectileSpawnLocation.position, Quaternion.Euler(0, angle, 0) * this._projectileSpawnLocation.rotation);
         projectile.CollisionMask = this._energyLayerMask;
+        projectile.Team = 1;
+
+        projectile.GetComponent<EffectBundle>().Volume = 0.1f;
 
         if (++projNum < max)
         {
@@ -130,23 +149,31 @@ public class Boss : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
         
+        Destroy(this._beam);
+        
         this.gameObject.SetActive(false);
     }
 
     private void DoLaserAttack()
     {
+        this._attackCoroutine = StartCoroutine(LaserAttackCoroutine());
+        ResetLaserAttack();
+    }
+
+    private IEnumerator LaserAttackCoroutine()
+    {
+        Instantiate(this._energyCharge, this._projectileSpawnLocation);
+        this._beam = Instantiate(this._beamTemplate, this._projectileSpawnLocation.position, this._projectileSpawnLocation.rotation,
+            this._projectileSpawnLocation);
+        this._beam.StartLocation = this._projectileSpawnLocation;
+        this._beam.transform.localPosition += new Vector3(0, 1.152f, 0);
+
         Boss other = _bosses.Find(x => x._index != this._index);
         if (other.isActiveAndEnabled)
         {
             other.StopAllCoroutines();
             other.StartCoroutine(other.LaserAttackHideCoroutine());
         }
-        this._attackCoroutine = StartCoroutine(LaserAttackCoroutine(other));
-        ResetLaserAttack();
-    }
-
-    private IEnumerator LaserAttackCoroutine(Boss other)
-    {
         yield return new WaitForSeconds(this._hideTime);
 
         Transform[] positions = this._positions!.Clone() as Transform[]; // Shallow copy doesn't return type correctly, so force it
@@ -157,6 +184,7 @@ public class Boss : MonoBehaviour
         this._animator.SetTrigger(this.transform.position.x < 0 ? "MoveForward" : "MoveBackward");
         yield return new WaitForSeconds(10f);
         this._animator.enabled = false;
+        Destroy(this._beam.gameObject);
         
         yield return new WaitForSeconds(this._hideTime);
 
@@ -196,6 +224,8 @@ public class Boss : MonoBehaviour
         DecideLaserAttack();
         for (int i = 0; i < 3; i++)
         {
+            Instantiate(this._missileCharge, this._projectileSpawnLocation);
+            yield return new WaitForSeconds(1.5f);
             // do missile attack;
             if (this._rocket)
             {
@@ -203,9 +233,11 @@ public class Boss : MonoBehaviour
                 Instantiate(this._rocket, this._projectileSpawnLocation.position + Vector3.forward, this._projectileSpawnLocation.rotation);
                 Instantiate(this._rocket, this._projectileSpawnLocation.position + Vector3.back, this._projectileSpawnLocation.rotation);
             }
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(0.1f);
         }
         // do a projectile attack;
+        Instantiate(this._energyCharge, this._projectileSpawnLocation);
+        yield return new WaitForSeconds(1.5f);
         SpawnProjectile(5, 160);
         yield return new WaitForSeconds(0.25f);
         SpawnProjectile(4, 120);

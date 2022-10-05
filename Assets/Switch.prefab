@@ -192,7 +192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sounds: {fileID: 8300000, guid: 0a761523785c8cf4bbcd41e9ff1c37af, type: 3}
-  Volume: 1
+  Volume: 0.5
   Particles: {fileID: 0}
   _debounceGroup: 
   DebounceSound: 0.1

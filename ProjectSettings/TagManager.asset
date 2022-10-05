@@ -14,8 +14,8 @@ TagManager:
   - Projectile
   - BlockPlayer
   - Boss
-  - 
-  - 
+  - Player (Not Health)
+  - Beam
   - 
   - 
   - 

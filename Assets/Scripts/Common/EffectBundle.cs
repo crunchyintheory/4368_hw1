@@ -38,7 +38,7 @@ public class EffectBundle : MonoBehaviour
         float lastPlayed = debounces.GetValueOrDefault(this._debounceGroup, 0);
         if (this.Sounds && (this.DebounceSound <= 0 || Time.time - lastPlayed > this.DebounceSound))
         {
-            AudioHelper.PlayClip2D(this.Sounds, 1.0f);
+            AudioHelper.PlayClip2D(this.Sounds, this.Volume);
             debounces[this._debounceGroup] = Time.time;
         }
 

@@ -8,10 +8,13 @@ public class Health : MonoBehaviour, IKillable, ITeamable
     [SerializeField] private int _initialHealth;
     [SerializeField] private int _team;
     [SerializeField] private int _damageCap = 0;
+    [SerializeField] private float _damageDebounce = 0.5f;
 
     [SerializeField] private bool _destroyOnDeath = false;
 
     [SerializeField] private EffectBundle _damageEffects;
+
+    private float _lastDamagedTime = -999f;
 
     public int CurrentHealth { get; protected set; }
     public int MaxHealth => this._initialHealth;
@@ -37,7 +40,12 @@ public class Health : MonoBehaviour, IKillable, ITeamable
     {
         if (this._damageCap > 0)
             damage = Mathf.Min(damage, this._damageCap);
-        this.CurrentHealth -= damage;
+
+        if (Time.time - this._lastDamagedTime < this._damageDebounce)
+            return;
+
+        this._lastDamagedTime = Time.time;
+        this.CurrentHealth = Mathf.Max(0, this.CurrentHealth - damage);
         this.OnDamaged?.Invoke(this, source);
         this._lastTouched = source;
         this._damageEffects?.Play(this.transform.position);

@@ -36,9 +36,9 @@ public class DamageSource : MonoBehaviour, ITeamable
         this._spawnTime = Time.time;
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
-        Debug.Log(this._collisionMask.value);
+        Debug.Log(other);
         if ((this._collisionMask.value & 1<<other.gameObject.layer) == 0)
         {
             return;

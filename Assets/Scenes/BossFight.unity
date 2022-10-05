@@ -1643,6 +1643,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3875279442181555214, guid: a72ec052bfab70f4fb79ecf8ccae595d, type: 3}
+      propertyPath: _laserAttackChance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3875279442181555214, guid: a72ec052bfab70f4fb79ecf8ccae595d, type: 3}
       propertyPath: _positions.Array.data[0]
       value: 
       objectReference: {fileID: 623371137}
