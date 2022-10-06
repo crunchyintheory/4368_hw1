@@ -22,7 +22,7 @@ public class ExplosiveCube : MonoBehaviour, IDamageable, ITeamable
 
     private Boss _target;
 
-    public int Team { get; }
+    public int Team => this._team;
 
     private void OnEnable()
     {

@@ -771,8 +771,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96532bb50e16f04cbea545d2c13607a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sounds: {fileID: 0}
-  Volume: 0
+  Sounds: {fileID: 8300000, guid: 54256a8e8eb6bca4aac14a57ce61403b, type: 3}
+  Volume: 0.2
   Particles: {fileID: 6118104933962189372, guid: cedeb2414745cbc478c60e401e292723, type: 3}
   _debounceGroup: 
   DebounceSound: 0.1

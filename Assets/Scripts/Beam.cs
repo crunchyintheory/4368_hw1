@@ -10,6 +10,8 @@ public class Beam : MonoBehaviour
     [SerializeField] public float ActivationTime = 1.5f;
     [SerializeField] private ParticleSystem _chargeEffect;
 
+    [SerializeField] private AudioSource _firingSound;
+    [SerializeField] private AudioSource _chargeSound;
     private DamageSource _damageSource;
     private float _spawnTime;
 
@@ -20,6 +22,12 @@ public class Beam : MonoBehaviour
         this._spawnTime = Time.time;
         this._damageSource = GetComponent<DamageSource>();
         this._ps = GetComponent<ParticleSystem>();
+    }
+
+    void Start()
+    {
+        this._chargeEffect.Play();
+        this._firingSound.PlayDelayed(this.ActivationTime);
     }
 
     // Update is called once per frame
@@ -52,6 +60,8 @@ public class Beam : MonoBehaviour
 
         if (Time.time - this._spawnTime >= this.ActivationTime)
         {
+            if(!this._ps.isPlaying) this._ps.Play();
+            this._chargeSound.Stop();
             Collider[] colliders = Physics.OverlapBox(
                 center: this.transform.position,
                 halfExtents: halfExtents,

@@ -81,11 +81,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c96532bb50e16f04cbea545d2c13607a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sounds: {fileID: 0}
-  Volume: 0
+  Sounds: {fileID: 8300000, guid: 0e05a89f3c389f846899dd0aec538d4b, type: 3}
+  Volume: 0.1
   Particles: {fileID: 7425164106421179310, guid: bdb87e90f734e774081e427da2591bb6, type: 3}
-  _debounceGroup: 
-  DebounceSound: 0.1
+  _debounceGroup: ExplosiveCubeRespawn
+  DebounceSound: 1
   _shouldShakeScreen: 0
 --- !u!114 &727741262
 MonoBehaviour:

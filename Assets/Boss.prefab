@@ -318,7 +318,7 @@ MonoBehaviour:
   _baseHeight: -4.93
   _hideHeight: -14
   _hideTime: 5
-  _laserAttackChance: 0.1
+  _laserAttackChance: 1
   _projectileSpawnLocation: {fileID: 148712326}
   _rocket: {fileID: 1356618344, guid: 83b0534ad34969d4f85b31a91d6fc9bd, type: 3}
   _energyBall: {fileID: 6340393190788601512, guid: ed68f9060a24d5942991b747aea24a3b, type: 3}
@@ -327,7 +327,9 @@ MonoBehaviour:
     m_Bits: 119
   _beamTemplate: {fileID: 1828699040, guid: 3b6a833c2541ee246b52b7ff75ddadf3, type: 3}
   _energyCharge: {fileID: 1120990314, guid: a8d1218f19b8080458357d5d8b79a7c9, type: 3}
+  _energyFiringSound: {fileID: 8300000, guid: 54256a8e8eb6bca4aac14a57ce61403b, type: 3}
   _missileCharge: {fileID: 7425164106421179310, guid: bdb87e90f734e774081e427da2591bb6, type: 3}
+  _missileFiringSound: {fileID: 8300000, guid: c13033b558a61764abe7d98acbd5d22f, type: 3}
   _explosion: {fileID: 576934000}
 --- !u!95 &504823703
 Animator:

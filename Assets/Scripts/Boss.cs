@@ -34,7 +34,9 @@ public class Boss : MonoBehaviour
 
     [Header("Feedback")]
     [SerializeField] private ParticleSystem _energyCharge;
+    [SerializeField] private AudioClip _energyFiringSound;
     [SerializeField] private ParticleSystem _missileCharge;
+    [SerializeField] private AudioClip _missileFiringSound;
     [SerializeField] private EffectBundle _explosion;
 
     private int _phase = 1;
@@ -241,6 +243,7 @@ public class Boss : MonoBehaviour
         {
             Instantiate(this._missileCharge, this._projectileSpawnLocation);
             yield return new WaitForSeconds(1.5f);
+            AudioHelper.PlayClip2D(this._missileFiringSound, 0.1f);
             // do missile attack;
             if (this._rocket)
             {
@@ -253,10 +256,13 @@ public class Boss : MonoBehaviour
         // do a projectile attack;
         Instantiate(this._energyCharge, this._projectileSpawnLocation);
         yield return new WaitForSeconds(1.5f);
+        AudioHelper.PlayClip2D(this._energyFiringSound, 0.2f);
         SpawnProjectile(5, 160);
         yield return new WaitForSeconds(0.25f);
+        AudioHelper.PlayClip2D(this._energyFiringSound, 0.2f);
         SpawnProjectile(4, 120);
         yield return new WaitForSeconds(0.25f);
+        AudioHelper.PlayClip2D(this._energyFiringSound, 0.2f);
         SpawnProjectile(5, 160);
         yield return new WaitForSeconds(0.25f);
         
