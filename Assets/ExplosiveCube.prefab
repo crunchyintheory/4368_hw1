@@ -67,6 +67,8 @@ MonoBehaviour:
   _disableEffects: {fileID: 0}
   _disableWaitTime: 0
   _destroyEffects: {fileID: 727741262}
+  PosZ: 0
+  _team: 1
 --- !u!114 &727741261
 MonoBehaviour:
   m_ObjectHideFlags: 0

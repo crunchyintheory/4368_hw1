@@ -4945,7 +4945,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e003b1b577aa8f742912cf4e93f3dd0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialVelocity: {x: 0, y: 0, z: 2}
+  InitialVelocity: {x: 0, y: 0, z: 3}
   _life: 60
   _art: {fileID: 7904253177736822498}
 --- !u!65 &2089189747607422564

@@ -22,22 +22,26 @@ public class HealthBar : MonoBehaviour
     {
         this._rect = GetComponent<RectTransform>();
         this._baseWidth = this._rect.rect.width;
+
+        float cumulativeMaxHealth = 0;
+        
+        foreach (IKillable killable in this._killables)
+        {
+            cumulativeMaxHealth += killable.MaxHealth;
+        }
+        
+        this._healthTickWidth = this._baseWidth / cumulativeMaxHealth;
     }
 
     private void OnEnable()
     {
         this._killables = new IKillable[this._targets.Length];
-
-        float cumulativeMaxHealth = 0;
         
         for (int i = 0; i < this._targets.Length; i++)
         {
             this._killables[i] = this._targets[i].GetComponent<IKillable>();
-            cumulativeMaxHealth += this._killables[i].MaxHealth;
             this._killables[i].OnDamaged += OnTargetDamaged;
         }
-
-        this._healthTickWidth = this._baseWidth / cumulativeMaxHealth;
     }
 
     private void OnDisable()
@@ -55,6 +59,7 @@ public class HealthBar : MonoBehaviour
 
     private void OnTargetDamaged(IDamageable sender, DamageSource source)
     {
+        Debug.Log(this._killables[0].CurrentHealth);
         this._rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, ComputeCurrentCumulativeHealth() * this._healthTickWidth);
     }
 }

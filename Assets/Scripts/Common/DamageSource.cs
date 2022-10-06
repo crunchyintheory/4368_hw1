@@ -38,7 +38,6 @@ public class DamageSource : MonoBehaviour, ITeamable
 
     public void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other);
         if ((this._collisionMask.value & 1<<other.gameObject.layer) == 0)
         {
             return;

@@ -5,18 +5,18 @@ using UnityEngine;
 
 public class Health : MonoBehaviour, IKillable, ITeamable
 {
-    [SerializeField] private int _initialHealth;
-    [SerializeField] private int _team;
-    [SerializeField] private int _damageCap = 0;
-    [SerializeField] private float _damageDebounce = 0.5f;
+    [SerializeField] protected int _initialHealth;
+    [SerializeField] protected int _team;
+    [SerializeField] protected int _damageCap = 0;
+    [SerializeField] protected float _damageDebounce = 0.5f;
 
-    [SerializeField] private bool _destroyOnDeath = false;
+    [SerializeField] protected bool _destroyOnDeath = false;
 
-    [SerializeField] private EffectBundle _damageEffects;
+    [SerializeField] protected EffectBundle _damageEffects;
 
-    private float _lastDamagedTime = -999f;
+    protected float _lastDamagedTime = -999f;
 
-    public int CurrentHealth { get; protected set; }
+    public virtual int CurrentHealth { get; protected set; }
     public int MaxHealth => this._initialHealth;
 
     public int Team
@@ -25,11 +25,11 @@ public class Health : MonoBehaviour, IKillable, ITeamable
         protected set => this._team = value;
     }
 
-    private DamageSource _lastTouched;
+    protected DamageSource _lastTouched;
 
-    public event IDamageable.DamagedEventHandler OnDamaged;
+    public virtual event IDamageable.DamagedEventHandler OnDamaged;
 
-    public event IKillable.KilledEventHandler OnKilled;
+    public virtual event IKillable.KilledEventHandler OnKilled;
 
     private void Start()
     {
@@ -41,7 +41,7 @@ public class Health : MonoBehaviour, IKillable, ITeamable
         if (this._damageCap > 0)
             damage = Mathf.Min(damage, this._damageCap);
 
-        if (Time.time - this._lastDamagedTime < this._damageDebounce)
+        if (this._damageDebounce > 0 && Time.time - this._lastDamagedTime < this._damageDebounce)
             return;
 
         this._lastDamagedTime = Time.time;
@@ -53,7 +53,7 @@ public class Health : MonoBehaviour, IKillable, ITeamable
             Kill();
     }
 
-    public void Kill()
+    public virtual void Kill()
     {
         this.OnKilled?.Invoke(this, this._lastTouched);
         if(!this._destroyOnDeath) Destroy(this.gameObject);

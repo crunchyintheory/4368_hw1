@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class ProjectileMovement : MonoBehaviour
 {
-    [SerializeField] private Vector3 _initialVelocity;
+    [SerializeField] public Vector3 InitialVelocity;
     [SerializeField] private float _life = 60;
 
     public Vector3 Velocity { get; protected set; }
@@ -17,7 +17,7 @@ public class ProjectileMovement : MonoBehaviour
     {
         this._spawnTime = Time.time;
         this._rb = GetComponent<Rigidbody>();
-        this.Velocity = this._initialVelocity;
+        this.Velocity = this.InitialVelocity;
     }
 
     private void Update()

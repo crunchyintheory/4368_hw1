@@ -41,6 +41,7 @@ public class TankCannon : MonoBehaviour
             this._lastShot = Time.time;
             ProjectileMovement shot = Instantiate(this._shot, this._shotSpawnPosition.position, this._cannonPivot.rotation);
             shot.GetComponent<DamageSource>().Team = this._player.Team;
+            shot.InitialVelocity = new Vector3(0, 0, 8);
             
             // Spawn Effects
             this._shotEffects.Play(this._shotEffectPosition.position);

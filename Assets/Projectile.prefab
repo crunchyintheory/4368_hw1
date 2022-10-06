@@ -193,7 +193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeb2b32ba4a9d6b40973a30cf3ae0f88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialVelocity: {x: 0, y: 0, z: 3}
+  InitialVelocity: {x: 0, y: 0, z: 5}
+  _life: 60
 --- !u!114 &6340393190788601511
 MonoBehaviour:
   m_ObjectHideFlags: 0

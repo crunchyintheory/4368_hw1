@@ -111,6 +111,7 @@ MonoBehaviour:
   _initialHealth: 5
   _team: 0
   _damageCap: 1
+  _damageDebounce: 1
   _destroyOnDeath: 1
   _damageEffects: {fileID: 1604882118}
 --- !u!65 &1604882119
@@ -139,7 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sounds: {fileID: 8300000, guid: 7869df5e56d4bf84c9ef2acb89fac57c, type: 3}
-  Volume: 0.05
+  Volume: 0.2
   Particles: {fileID: 0}
   _debounceGroup: 
   DebounceSound: 0.1
@@ -602,7 +603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 509303ee69e48a841ac32daa0fd2a2fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 6
+  _moveSpeed: 4
   _turnSpeed: 3
   _maxSpeed: 0.25
   _minSpeed: 0.25

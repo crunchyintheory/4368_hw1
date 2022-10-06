@@ -4,7 +4,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class ExplosiveCube : MonoBehaviour, IDamageable
+public class ExplosiveCube : MonoBehaviour, IDamageable, ITeamable
 {
     private static List<ExplosiveCube> Cubes = new();
 
@@ -15,9 +15,14 @@ public class ExplosiveCube : MonoBehaviour, IDamageable
     [SerializeField] private float _disableWaitTime;
     [SerializeField] private EffectBundle _destroyEffects;
 
+    [SerializeField] private bool PosZ;
+    [SerializeField] private int _team;
+
     private bool _enabled = true;
 
     private Boss _target;
+
+    public int Team { get; }
 
     private void OnEnable()
     {
@@ -29,7 +34,7 @@ public class ExplosiveCube : MonoBehaviour, IDamageable
         Cubes.Remove(this);
     }
 
-    private void Awake()
+    private void Start()
     {
          SetBossTarget();
     }
@@ -43,6 +48,7 @@ public class ExplosiveCube : MonoBehaviour, IDamageable
         this._enabled = false;
         this._destroyEffects?.Play(this.transform.position);
         this._visual.SetActive(false);
+        this._target.InterruptMove(this.PosZ);
     }
 
     public static void EnableAll()

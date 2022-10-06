@@ -385,7 +385,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sounds: {fileID: 8300000, guid: efc5c8b47a753e142926968f6c37d8ba, type: 3}
-  Volume: 0.001
+  Volume: 0.05
   Particles: {fileID: 7829030957035343067, guid: cbd73f0e5ebd4364f9ca5af466526a15, type: 3}
   _debounceGroup: explosion_die
   DebounceSound: 0.2
@@ -500,7 +500,7 @@ GameObject:
   - component: {fileID: 1537849166590763442}
   - component: {fileID: 4065008213011169446}
   - component: {fileID: 1774521534179440441}
-  - component: {fileID: 1978204987953506422}
+  - component: {fileID: 411582105899962135}
   m_Layer: 8
   m_Name: Hitbox
   m_TagString: Untagged
@@ -586,7 +586,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 18.024578, y: 1, z: 0.8511559}
   m_Center: {x: -1.635854, y: 0, z: 0}
---- !u!114 &1978204987953506422
+--- !u!114 &411582105899962135
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -595,7 +595,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4815208776997478786}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dfccc944dc241c4aa8f0b433287cb84, type: 3}
+  m_Script: {fileID: 11500000, guid: 7081ccdfa6b4b0b42815bee404684774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _initialHealth: 100
@@ -604,3 +604,4 @@ MonoBehaviour:
   _damageDebounce: 0.5
   _destroyOnDeath: 0
   _damageEffects: {fileID: 1219107349859155101}
+  _poolName: Boss

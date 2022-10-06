@@ -82,19 +82,18 @@ public class Boss : MonoBehaviour
         _laserAttackerThisTurn = -1;
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         this._animator = GetComponent<Animator>();
         this._animator.enabled = false;
-        this._index = _nextIndex++;
-        _bosses.Add(this);
         this.transform.position = this._positions[this._position].position;
         BossStart();
     }
 
     void OnEnable()
     {
+        this._index = _nextIndex++;
+        _bosses.Add(this);
         this._health = GetComponentInChildren<Health>();
         this._health.OnKilled += DestroyEffects;
     }
@@ -143,6 +142,7 @@ public class Boss : MonoBehaviour
 
     private IEnumerator OnDestroyCoroutine()
     {
+        yield return new WaitForEndOfFrame(); // Fix a race condition involving the list of members in SharedHealth if removed
         this._health.gameObject.SetActive(false);
         Vector3 sunkenPos = this.transform.position;
         sunkenPos.y = this._hideHeight;
@@ -272,26 +272,48 @@ public class Boss : MonoBehaviour
             else if (_laserAttackerThisTurn == -1)
             {
                 //move
-                int old = this._position;
-                int pos;
-                do
-                {
-                    pos = Mathf.RoundToInt(Random.Range(0, this._positions.Length));
-                } while (pos == old);
-                int difference = Mathf.Abs(this._position - pos);
-                this._position = pos;
-
-                for (float i = 0; i < this._moveTime * difference; i += Time.deltaTime)
-                {
-                    this.transform.position = Vector3.Lerp(this._positions[old].position, this._positions[pos].position, i / (this._moveTime * difference));
-                    yield return new WaitForEndOfFrame();
-                }
-
-                this.transform.position = this._positions[pos].position;
+                yield return MoveCoroutine();
 
                 yield return new WaitForSeconds(2f);
                 this._attackCoroutine = StartCoroutine(MainAttackCoroutine());
             }
         }
+    }
+
+    private IEnumerator MoveCoroutine(int position = -1, bool startAttackAfter = false)
+    {
+        int old = this._position;
+        int pos;
+        if (position == -1)
+        {
+            do
+            {
+                pos = Mathf.RoundToInt(Random.Range(0, this._positions.Length));
+            } while (pos == old);
+        }
+        else
+        {
+            pos = position;
+        }
+        int difference = Mathf.Abs(this._position - pos);
+        this._position = pos;
+
+        for (float i = 0; i < this._moveTime * difference; i += Time.deltaTime)
+        {
+            this.transform.position = Vector3.Lerp(this._positions[old].position, this._positions[pos].position, i / (this._moveTime * difference));
+            yield return new WaitForEndOfFrame();
+        }
+
+        this.transform.position = this._positions[pos].position;
+        if (startAttackAfter) StartCoroutine(MainAttackCoroutine());
+    }
+
+    public void InterruptMove(bool moveBack)
+    {
+        int newPosition = this._position + (moveBack ? -1 : 1);
+        newPosition = Mathf.Clamp(0, newPosition, 2);
+        
+        StopAllCoroutines();
+        StartCoroutine(MoveCoroutine(newPosition, true));
     }
 }
