@@ -16,7 +16,8 @@ public class DamageSource : MonoBehaviour, ITeamable
 
     [SerializeField] public int Damage = 1;
     [SerializeField] public bool Piercing = false;
-    [SerializeField] public bool BlocksOtherProjectiles = false;
+    [SerializeField, Min(1)] public int ProjectileLayer = 0;
+    [SerializeField] public int ProjectileBlockMask = 0;
     [SerializeField] public bool FriendlyFire = false;
     [SerializeField] public float WarmupTime = 0;
     [SerializeField] private EffectBundle _destroyEffects;
@@ -54,7 +55,7 @@ public class DamageSource : MonoBehaviour, ITeamable
         damageable?.TakeDamage(this.Damage, this);
 
         DamageSource damageSource = other.gameObject.GetComponent<DamageSource>();
-        if (damageSource && !damageSource.BlocksOtherProjectiles)
+        if (damageSource && (damageSource.ProjectileLayer & this.ProjectileBlockMask) == 0)
             return;
 
         if (!this.Piercing)

@@ -4992,7 +4992,8 @@ MonoBehaviour:
   _team: 1
   Damage: 10
   Piercing: 0
-  BlocksOtherProjectiles: 1
+  ProjectileLayer: 1
+  ProjectileBlockMask: 1
   FriendlyFire: 1
   WarmupTime: 0.3
   _destroyEffects: {fileID: 1356618345}

@@ -228,7 +228,8 @@ MonoBehaviour:
   _team: 0
   Damage: 1
   Piercing: 0
-  BlocksOtherProjectiles: 0
+  ProjectileLayer: 2
+  ProjectileBlockMask: 0
   FriendlyFire: 0
   WarmupTime: 0
   _destroyEffects: {fileID: 6340393190788601511}
