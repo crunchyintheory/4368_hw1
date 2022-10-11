@@ -320,6 +320,7 @@ public class Boss : MonoBehaviour
         newPosition = Mathf.Clamp(0, newPosition, 2);
         
         StopAllCoroutines();
+        ResetLaserAttack();
         StartCoroutine(MoveCoroutine(newPosition, true));
     }
 }
