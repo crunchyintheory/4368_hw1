@@ -61,6 +61,8 @@ public class SharedHealth : Health
     
     public override void TakeDamage(int damage, DamageSource source)
     {
+        if (this.IsImmune) return;
+        
         if (this._damageCap > 0)
             damage = Mathf.Min(damage, this._damageCap);
 
