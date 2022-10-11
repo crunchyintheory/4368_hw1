@@ -19,6 +19,8 @@ public class Health : MonoBehaviour, IKillable, ITeamable
     public virtual int CurrentHealth { get; protected set; }
     public int MaxHealth => this._initialHealth;
 
+    public bool IsImmune = false;
+
     public int Team
     {
         get => this._team;
@@ -38,6 +40,8 @@ public class Health : MonoBehaviour, IKillable, ITeamable
 
     public virtual void TakeDamage(int damage, DamageSource source)
     {
+        if (this.IsImmune) return;
+        
         if (this._damageCap > 0)
             damage = Mathf.Min(damage, this._damageCap);
 

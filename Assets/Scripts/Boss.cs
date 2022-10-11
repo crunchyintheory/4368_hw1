@@ -178,6 +178,7 @@ public class Boss : MonoBehaviour
 
     private IEnumerator LaserAttackCoroutine()
     {
+        this._health.IsImmune = true;
         Instantiate(this._energyCharge, this._projectileSpawnLocation);
         this._beam = Instantiate(this._beamTemplate, this._projectileSpawnLocation.position, this._projectileSpawnLocation.rotation,
             this._projectileSpawnLocation);
@@ -205,6 +206,7 @@ public class Boss : MonoBehaviour
         yield return new WaitForSeconds(this._hideTime);
 
         yield return new WaitForSeconds(2f);
+        this._health.IsImmune = false;
         this._attackCoroutine = StartCoroutine(MainAttackCoroutine());
         ExplosiveCube.EnableAll();
     }
