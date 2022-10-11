@@ -74,7 +74,7 @@ public class Boss : MonoBehaviour
 
         if (_laserAttackerThisTurn == -1)
         {
-            _currentLaserAttackChanceMultiplier *= 1f;
+            _currentLaserAttackChanceMultiplier *= 1.2f;
         }
     }
 
@@ -242,7 +242,7 @@ public class Boss : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             Instantiate(this._missileCharge, this._projectileSpawnLocation);
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(1f);
             AudioHelper.PlayClip2D(this._missileFiringSound, 0.1f);
             // do missile attack;
             if (this._rocket)

@@ -318,7 +318,7 @@ MonoBehaviour:
   _baseHeight: -4.93
   _hideHeight: -14
   _hideTime: 5
-  _laserAttackChance: 1
+  _laserAttackChance: 0.1
   _projectileSpawnLocation: {fileID: 148712326}
   _rocket: {fileID: 1356618344, guid: 83b0534ad34969d4f85b31a91d6fc9bd, type: 3}
   _energyBall: {fileID: 6340393190788601512, guid: ed68f9060a24d5942991b747aea24a3b, type: 3}
